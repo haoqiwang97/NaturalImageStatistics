@@ -18,9 +18,9 @@ import numpy as np
 
 image = mpimg.imread('natural_forest.jpg')
 
-image_remove_red=remove_color.remove_red(I)
-image_remove_green=remove_color.remove_green(I)
-image_remove_blue=remove_color.remove_blue(I)
+image_remove_red=remove_color.remove_red(image)
+image_remove_green=remove_color.remove_green(image)
+image_remove_blue=remove_color.remove_blue(image)
 '''
 
 
