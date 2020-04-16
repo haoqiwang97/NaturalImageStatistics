@@ -18,7 +18,8 @@ def read_image(image_path):
     image = np.asarray(ori_image).astype(np.int32)
     return image
 
-def rms_contrast(image,i,j,channel):
+
+def rms_contrast(image, i, j, channel):
     p00 = image[i - 1, j - 1, channel]
     p01 = image[i - 1, j, channel]
     p02 = image[i - 1, j + 1, channel]
@@ -35,8 +36,9 @@ def rms_contrast(image,i,j,channel):
 
     rms_contrast = np.std(contrast_matrix) / np.mean(contrast_matrix)
 
-    return rms_contrast    
-    
+    return rms_contrast
+
+
 def pixel_analysis(image):
     image_size = image.shape
 
@@ -44,23 +46,23 @@ def pixel_analysis(image):
     num_row = image_size[0]  # how many rows
     num_column = image_size[1]  # how many columns
 
-    #i = 1
-    #j = 1
+    # i = 1
+    # j = 1
     # iterate each pixel except border
-    #for i in np.arange(1, num_row - 1):
-        #for j in np.arange(1, num_column - 1):
+    # for i in np.arange(1, num_row - 1):
+    # for j in np.arange(1, num_column - 1):
     for i in np.arange(1, 5 - 1):
         for j in np.arange(1, 5 - 1):
-            print(i,j)
+            print(i, j)
             # ith row, jth column pixel
-            red_value=image[i,j,0]
-            green_value=image[i,j,1]
-            blue_value=image[i,j,2]
-            
-            red_contrast=rms_contrast(image,i,j,0)
-            green_contrast = rms_contrast(image, i, j,1)
-            blue_contrast = rms_contrast(image,i,j,2)   
-            
+            red_value = image[i, j, 0]
+            green_value = image[i, j, 1]
+            blue_value = image[i, j, 2]
+
+            red_contrast = rms_contrast(image, i, j, 0)
+            green_contrast = rms_contrast(image, i, j, 1)
+            blue_contrast = rms_contrast(image, i, j, 2)
+
             red_green_contrast_mean = (red_contrast + green_contrast) / 2
             red_blue_contrast_mean = (red_contrast + blue_contrast) / 2
             green_blue_contrast_mean = (green_contrast + blue_contrast) / 2
@@ -88,90 +90,90 @@ def pixel_analysis(image):
 
             # read csv, 6 csv to read
             CSV_FOLDER = './train_database/'
-            
+
             RG_csv_path = CSV_FOLDER + RG_csv
             RB_csv_path = CSV_FOLDER + RB_csv
             GB_csv_path = CSV_FOLDER + GB_csv
-            
+
             RG_record_csv_path = CSV_FOLDER + RG_record_csv
             RB_record_csv_path = CSV_FOLDER + RB_record_csv
             GB_record_csv_path = CSV_FOLDER + GB_record_csv
-            
+
             RG_csv_df = pd.read_csv(RG_csv_path, header=None, names=None)
             RB_csv_df = pd.read_csv(RB_csv_path, header=None, names=None)
             GB_csv_df = pd.read_csv(GB_csv_path, header=None, names=None)
-            
-            RG_record_csv_df=pd.read_csv(RG_record_csv_path, header=None, names=None)
-            RB_record_csv_df=pd.read_csv(RB_record_csv_path, header=None, names=None)
-            GB_record_csv_df=pd.read_csv(GB_record_csv_path, header=None, names=None)
-            
+
+            RG_record_csv_df = pd.read_csv(RG_record_csv_path, header=None, names=None)
+            RB_record_csv_df = pd.read_csv(RB_record_csv_path, header=None, names=None)
+            GB_record_csv_df = pd.read_csv(GB_record_csv_path, header=None, names=None)
+
             '''
             locate row and column
             '''
-            #RG
-            RG_csv_row=1+green_value
-            RG_csv_column=1+red_value
-            
-            #RB
-            RB_csv_row=1+blue_value
-            RB_csv_column=1+red_value
-            
-            #GB
-            GB_csv_row=1+blue_value
-            GB_csv_column=1+green_value
-            
+            # RG
+            RG_csv_row = 1 + green_value
+            RG_csv_column = 1 + red_value
+
+            # RB
+            RB_csv_row = 1 + blue_value
+            RB_csv_column = 1 + red_value
+
+            # GB
+            GB_csv_row = 1 + blue_value
+            GB_csv_column = 1 + green_value
+
             '''
             extract original value
             '''
-            #RG
-            RG_csv_df_cell=int(RG_csv_df.iloc[RG_csv_row,RG_csv_column])
-            RG_record_csv_df_cell=int(RG_record_csv_df.iloc[RG_csv_row,RG_csv_column])
-            
-            #RB
-            RB_csv_df_cell=int(RB_csv_df.iloc[RB_csv_row,RB_csv_column])
-            RB_record_csv_df_cell=int(RB_record_csv_df.iloc[RB_csv_row,RB_csv_column])
-            
-            #GB
-            GB_csv_df_cell=int(GB_csv_df.iloc[GB_csv_row,GB_csv_column])
-            GB_record_csv_df_cell=int(GB_record_csv_df.iloc[GB_csv_row,GB_csv_column])
-            
+            # RG
+            RG_csv_df_cell = int(RG_csv_df.iloc[RG_csv_row, RG_csv_column])
+            RG_record_csv_df_cell = int(RG_record_csv_df.iloc[RG_csv_row, RG_csv_column])
+
+            # RB
+            RB_csv_df_cell = int(RB_csv_df.iloc[RB_csv_row, RB_csv_column])
+            RB_record_csv_df_cell = int(RB_record_csv_df.iloc[RB_csv_row, RB_csv_column])
+
+            # GB
+            GB_csv_df_cell = int(GB_csv_df.iloc[GB_csv_row, GB_csv_column])
+            GB_record_csv_df_cell = int(GB_record_csv_df.iloc[GB_csv_row, GB_csv_column])
+
             '''
             update value as weighted outcome of original value and current value
             '''
-            #RG
-            RG_csv_df_cell=int((RG_csv_df_cell*RG_record_csv_df_cell+blue_value)/(RG_record_csv_df_cell+1))
-            RG_record_csv_df_cell=int(RG_record_csv_df_cell+1)
-            
-            #RB
-            RB_csv_df_cell=int((RB_csv_df_cell*RB_record_csv_df_cell+green_value)/(RB_record_csv_df_cell+1))
-            RB_record_csv_df_cell=int(RB_record_csv_df_cell+1)
-            
-            #GB
-            GB_csv_df_cell=int((GB_csv_df_cell*GB_record_csv_df_cell+red_value)/(GB_record_csv_df_cell+1))
-            GB_record_csv_df_cell=int(GB_record_csv_df_cell+1)            
-            
+            # RG
+            RG_csv_df_cell = int((RG_csv_df_cell * RG_record_csv_df_cell + blue_value) / (RG_record_csv_df_cell + 1))
+            RG_record_csv_df_cell = int(RG_record_csv_df_cell + 1)
+
+            # RB
+            RB_csv_df_cell = int((RB_csv_df_cell * RB_record_csv_df_cell + green_value) / (RB_record_csv_df_cell + 1))
+            RB_record_csv_df_cell = int(RB_record_csv_df_cell + 1)
+
+            # GB
+            GB_csv_df_cell = int((GB_csv_df_cell * GB_record_csv_df_cell + red_value) / (GB_record_csv_df_cell + 1))
+            GB_record_csv_df_cell = int(GB_record_csv_df_cell + 1)
+
             '''
             input value
             '''
-            #RG
-            RG_csv_df.iloc[RG_csv_row,RG_csv_column]=RG_csv_df_cell
-            RG_record_csv_df.iloc[RG_csv_row,RG_csv_column]=RG_record_csv_df_cell
-            
-            #RB
-            RB_csv_df.iloc[RB_csv_row,RB_csv_column]=RB_csv_df_cell
-            RB_record_csv_df.iloc[RB_csv_row,RB_csv_column]=RB_record_csv_df_cell
-            
-            #GB
-            GB_csv_df.iloc[GB_csv_row,GB_csv_column]=GB_csv_df_cell
-            GB_record_csv_df.iloc[GB_csv_row,GB_csv_column]=GB_record_csv_df_cell
-            
+            # RG
+            RG_csv_df.iloc[RG_csv_row, RG_csv_column] = RG_csv_df_cell
+            RG_record_csv_df.iloc[RG_csv_row, RG_csv_column] = RG_record_csv_df_cell
+
+            # RB
+            RB_csv_df.iloc[RB_csv_row, RB_csv_column] = RB_csv_df_cell
+            RB_record_csv_df.iloc[RB_csv_row, RB_csv_column] = RB_record_csv_df_cell
+
+            # GB
+            GB_csv_df.iloc[GB_csv_row, GB_csv_column] = GB_csv_df_cell
+            GB_record_csv_df.iloc[GB_csv_row, GB_csv_column] = GB_record_csv_df_cell
+
             # save csv file
             # extract row and column name
-            
+
             '''
             formalize dataframe
             '''
-            #RG
+            # RG
             RG_column_name_list = RG_csv_df.iloc[:, 0]  # first column
             RG_column_name_list = RG_column_name_list.tolist()
             del RG_column_name_list[0]
@@ -179,7 +181,7 @@ def pixel_analysis(image):
             RG_row_name_list = RG_csv_df.iloc[0, :]  # first row
             RG_row_name_list = RG_row_name_list.tolist()
             del RG_row_name_list[0]
-            
+
             RG_record_column_name_list = RG_record_csv_df.iloc[:, 0]  # first column
             RG_record_column_name_list = RG_record_column_name_list.tolist()
             del RG_record_column_name_list[0]
@@ -187,8 +189,7 @@ def pixel_analysis(image):
             RG_record_row_name_list = RG_record_csv_df.iloc[0, :]  # first row
             RG_record_row_name_list = RG_record_row_name_list.tolist()
             del RG_record_row_name_list[0]
-            
-            
+
             RG_csv_df.drop(index=0, columns=None, inplace=True)  # delete first row
             RG_csv_df.drop(index=None, columns=0, inplace=True)  # delete first column
 
@@ -200,8 +201,8 @@ def pixel_analysis(image):
 
             RG_record_csv_df.columns = RG_row_name_list
             RG_record_csv_df.index = RG_column_name_list
-            
-            #RB
+
+            # RB
             RB_column_name_list = RB_csv_df.iloc[:, 0]  # first column
             RB_column_name_list = RB_column_name_list.tolist()
             del RB_column_name_list[0]
@@ -209,7 +210,7 @@ def pixel_analysis(image):
             RB_row_name_list = RB_csv_df.iloc[0, :]  # first row
             RB_row_name_list = RB_row_name_list.tolist()
             del RB_row_name_list[0]
-            
+
             RB_record_column_name_list = RB_record_csv_df.iloc[:, 0]  # first column
             RB_record_column_name_list = RB_record_column_name_list.tolist()
             del RB_record_column_name_list[0]
@@ -217,8 +218,7 @@ def pixel_analysis(image):
             RB_record_row_name_list = RB_record_csv_df.iloc[0, :]  # first row
             RB_record_row_name_list = RB_record_row_name_list.tolist()
             del RB_record_row_name_list[0]
-            
-            
+
             RB_csv_df.drop(index=0, columns=None, inplace=True)  # delete first row
             RB_csv_df.drop(index=None, columns=0, inplace=True)  # delete first column
 
@@ -231,7 +231,7 @@ def pixel_analysis(image):
             RB_record_csv_df.columns = RB_row_name_list
             RB_record_csv_df.index = RB_column_name_list
 
-            #GB
+            # GB
             GB_column_name_list = GB_csv_df.iloc[:, 0]  # first column
             GB_column_name_list = GB_column_name_list.tolist()
             del GB_column_name_list[0]
@@ -239,7 +239,7 @@ def pixel_analysis(image):
             GB_row_name_list = GB_csv_df.iloc[0, :]  # first row
             GB_row_name_list = GB_row_name_list.tolist()
             del GB_row_name_list[0]
-            
+
             GB_record_column_name_list = GB_record_csv_df.iloc[:, 0]  # first column
             GB_record_column_name_list = GB_record_column_name_list.tolist()
             del GB_record_column_name_list[0]
@@ -247,8 +247,7 @@ def pixel_analysis(image):
             GB_record_row_name_list = GB_record_csv_df.iloc[0, :]  # first row
             GB_record_row_name_list = GB_record_row_name_list.tolist()
             del GB_record_row_name_list[0]
-            
-            
+
             GB_csv_df.drop(index=0, columns=None, inplace=True)  # delete first row
             GB_csv_df.drop(index=None, columns=0, inplace=True)  # delete first column
 
@@ -260,7 +259,7 @@ def pixel_analysis(image):
 
             GB_record_csv_df.columns = GB_row_name_list
             GB_record_csv_df.index = GB_column_name_list
-            
+
             '''
             write in new data
             '''
@@ -268,22 +267,23 @@ def pixel_analysis(image):
             # RG_csv_df.to_csv('test.csv')
             RG_csv_df.to_csv(RG_csv_path)
             RG_record_csv_df.to_csv(RG_record_csv_path)
-            
+
             # RB
             RB_csv_df.to_csv(RB_csv_path)
-            RB_record_csv_df.to_csv(RB_record_csv_path)            
-            
+            RB_record_csv_df.to_csv(RB_record_csv_path)
+
             # GB
             GB_csv_df.to_csv(GB_csv_path)
-            GB_record_csv_df.to_csv(GB_record_csv_path)  
+            GB_record_csv_df.to_csv(GB_record_csv_path)
     return
+
 
 IMAGE_FOLDER = './image_database/'  # image location
 
 # get names for all images
 image_name_list = [name for name in os.listdir(IMAGE_FOLDER)]
 
-#iterate pixels
+# iterate pixels
 for image_index in range(len(image_name_list)):
     image_name = image_name_list[image_index]
     image_path = IMAGE_FOLDER + image_name
