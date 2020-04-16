@@ -21,6 +21,7 @@ def read_image(image_path):
     image = np.asarray(ori_image).astype(np.int32)
     return image
 
+
 def rms_contrast(image, i, j, channel):
     p00 = image[i - 1, j - 1, channel]
     p01 = image[i - 1, j, channel]
@@ -43,8 +44,8 @@ def rms_contrast(image, i, j, channel):
 
 def pixel_analysis(image):
     global num_point
-    num_point=0
-    
+    num_point = 0
+
     image_size = image.shape
 
     num_channel = image_size[2]
@@ -54,11 +55,11 @@ def pixel_analysis(image):
     # i = 1
     # j = 1
     # iterate each pixel except border
-    #for i in np.arange(1, num_row - 1):
-        #for j in np.arange(1, num_column - 1):
+    # for i in np.arange(1, num_row - 1):
+    # for j in np.arange(1, num_column - 1):
     for i in np.arange(1, 10 - 1):
         for j in np.arange(1, 10 - 1):
-            #print(i, j)
+            # print(i, j)
             # ith row, jth column pixel
             red_value = image[i, j, 0]
             green_value = image[i, j, 1]
@@ -280,8 +281,8 @@ def pixel_analysis(image):
             # GB
             GB_csv_df.to_csv(GB_csv_path)
             GB_record_csv_df.to_csv(GB_record_csv_path)
-            
-            num_point+=1
+
+            num_point += 1
     return
 
 
@@ -290,46 +291,42 @@ IMAGE_FOLDER = './image_database/'  # image location
 # get names for all images
 image_name_list = [name for name in os.listdir(IMAGE_FOLDER)]
 
-#@jit(nopython=True,nogil=True)
+# @jit(nopython=True,nogil=True)
 # iterate pixels
 for image_index in range(len(image_name_list)):
-    
-    t1 = datetime.datetime.now()#start stopwatch
-    
+    t1 = datetime.datetime.now()  # start stopwatch
+
     image_name = image_name_list[image_index]
     image_path = IMAGE_FOLDER + image_name
 
     image = read_image(image_path)
     pixel_analysis(image)
-    
+
     t2 = datetime.datetime.now()
-    
-    time_elapse=t2 - t1
-    
-    print('The number of image: '+str(image_index))
-    print('Image name: '+image_name)
+
+    time_elapse = t2 - t1
+
+    print('The number of image: ' + str(image_index))
+    print('Image name: ' + image_name)
     print('time elapse =', time_elapse)
     print('\n')
-    
-    file=open("./record/test.txt","a")
-    #file.writelines('@jit(nopython=True,nogil=True)')
-    #file.writelines('\n')
-    
-    file.writelines('The number of image: '+str(image_index))
+
+    file = open("./record/test.txt", "a")
+    # file.writelines('@jit(nopython=True,nogil=True)')
+    # file.writelines('\n')
+
+    file.writelines('The number of image: ' + str(image_index))
     file.writelines('\n')
-    file.writelines('Image name: '+image_name)
+    file.writelines('Image name: ' + image_name)
     file.writelines('\n')
-    file.writelines('Image dimension: '+str(image.shape[0])+'*'+str(image.shape[1]))
+    file.writelines('Image dimension: ' + str(image.shape[0]) + '*' + str(image.shape[1]))
     file.writelines('\n')
-    file.writelines('Total number of pixels: '+str(image.shape[0]*image.shape[1]))
+    file.writelines('Total number of pixels: ' + str(image.shape[0] * image.shape[1]))
     file.writelines('\n')
-    file.writelines('Total number of trained points: '+str(num_point))
+    file.writelines('Total number of trained points: ' + str(num_point))
     file.writelines('\n')
-    file.writelines('time elapse ='+str(time_elapse))
+    file.writelines('time elapse =' + str(time_elapse))
     file.writelines('\n')
     file.writelines('\n')
-    
+
     file.close()
-    
-    
-    
