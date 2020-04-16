@@ -1,0 +1,26 @@
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 9
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 9
+time elapse =0:00:02.037298
+
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 9
+time elapse =0:00:02.019769
+
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 64
+time elapse =0:00:14.639987
+
