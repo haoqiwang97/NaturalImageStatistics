@@ -13,11 +13,13 @@ import matplotlib.image as mpimg
 import pandas as pd
 import datetime
 
+from numba import jit
+
+
 def read_image(image_path):
     ori_image = mpimg.imread(image_path)
     image = np.asarray(ori_image).astype(np.int32)
     return image
-
 
 def rms_contrast(image, i, j, channel):
     p00 = image[i - 1, j - 1, channel]
@@ -288,6 +290,7 @@ IMAGE_FOLDER = './image_database/'  # image location
 # get names for all images
 image_name_list = [name for name in os.listdir(IMAGE_FOLDER)]
 
+#@jit(nopython=True,nogil=True)
 # iterate pixels
 for image_index in range(len(image_name_list)):
     
@@ -309,6 +312,9 @@ for image_index in range(len(image_name_list)):
     print('\n')
     
     file=open("./record/test.txt","a")
+    #file.writelines('@jit(nopython=True,nogil=True)')
+    #file.writelines('\n')
+    
     file.writelines('The number of image: '+str(image_index))
     file.writelines('\n')
     file.writelines('Image name: '+image_name)
