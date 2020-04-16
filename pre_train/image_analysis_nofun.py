@@ -9,7 +9,7 @@ Created on Wed Apr 15 09:17:48 2020
 import numpy as np
 import os
 import matplotlib.image as mpimg
-
+import csv
 import pandas as pd
 
 
@@ -38,6 +38,19 @@ def rms_contrast(image,i,j,channel):
     return rms_contrast    
     
 def pixel_analysis(image):
+    
+IMAGE_FOLDER = './image_database/'  # image location
+
+# get names for all images
+image_name_list = [name for name in os.listdir(IMAGE_FOLDER)]
+
+#iterate pixels
+for image_index in range(len(image_name_list)):
+    image_name = image_name_list[image_index]
+    image_path = IMAGE_FOLDER + image_name
+
+    image = read_image(image_path)
+
     image_size = image.shape
 
     num_channel = image_size[2]
@@ -49,8 +62,8 @@ def pixel_analysis(image):
     # iterate each pixel except border
     #for i in np.arange(1, num_row - 1):
         #for j in np.arange(1, num_column - 1):
-    for i in np.arange(1, 5 - 1):
-        for j in np.arange(1, 5 - 1):
+    for i in np.arange(1, 10 - 1):
+        for j in np.arange(1, 10 - 1):
             print(i,j)
             # ith row, jth column pixel
             red_value=image[i,j,0]
@@ -276,17 +289,18 @@ def pixel_analysis(image):
             # GB
             GB_csv_df.to_csv(GB_csv_path)
             GB_record_csv_df.to_csv(GB_record_csv_path)  
-    return
 
-IMAGE_FOLDER = './image_database/'  # image location
+'''
+CSV_FOLDER = './train_database/'
+RG_csv_path = CSV_FOLDER + RG_csv
+pd.read_csv()
 
-# get names for all images
-image_name_list = [name for name in os.listdir(IMAGE_FOLDER)]
+with open(RG_csv_path) as csvfile:
+    current_csv = csv.reader(csvfile)
+    for row in f_csv:
+        print(row)
 
-#iterate pixels
-for image_index in range(len(image_name_list)):
-    image_name = image_name_list[image_index]
-    image_path = IMAGE_FOLDER + image_name
-
-    image = read_image(image_path)
-    pixel_analysis(image)
+current_csv['RG_C00_R_0', 'RG_C00_G_0']
+RG_C00_R_0
+RG_C00_G_0
+'''
