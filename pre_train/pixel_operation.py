@@ -45,29 +45,6 @@ def contrast_index(contrast_mean):
 
 @jit(nopython=True, nogil=True)
 def pixel_analysis(image, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix):
-    '''
-    def rms_contrast(image, i, j, channel):
-        p00 = image[i - 1, j - 1, channel]
-        p01 = image[i - 1, j, channel]
-        p02 = image[i - 1, j + 1, channel]
-    
-        p10 = image[i, j - 1, channel]
-        p11 = image[i, j, channel]
-        p12 = image[i, j + 1, channel]
-    
-        p20 = image[i + 1, j - 1, channel]
-        p21 = image[i + 1, j, channel]
-        p22 = image[i + 1, j + 1, channel]
-    
-        #contrast_matrix = [p00, p01, p02, p10, p11, p12, p20, p21, p22]
-        
-        contrast_matrix =np.array([p00, p01, p02, p10, p11, p12, p20, p21, p22],dtype=np.float32)
-    
-        rms_contrast = np.std(contrast_matrix) / np.mean(contrast_matrix)
-    
-        return rms_contrast
-    '''
-    # global num_point
     num_point = 0
 
     image_size = image.shape
