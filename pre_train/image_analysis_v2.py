@@ -52,10 +52,11 @@ for image_index in range(len(image_name_list)):
     print('\n')
 
     file = open("./record/test.txt", "a")
-    # file.writelines('@jit(nopython=True,nogil=True)')
-    # file.writelines('\n')
 
     file.writelines('Date time: ' + str(datetime.datetime.now()))
+    file.writelines('\n')
+
+    file.writelines('@jit(nopython=True,nogil=True)')
     file.writelines('\n')
 
     file.writelines('The number of image: ' + str(image_index))

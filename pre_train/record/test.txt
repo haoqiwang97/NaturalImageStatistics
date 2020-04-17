@@ -85,3 +85,69 @@ Total number of pixels: 1352569
 Total number of trained points: 1347921
 time elapse =0:03:18.672267
 
+Date time: 2020-04-17 16:07:42.608739
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:03:27.274117
+
+str to int at the indexing step
+Date time: 2020-04-17 17:11:32.066560
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:03:46.352037
+
+Date time: 2020-04-17 17:15:16.757602
+@jit(nopython=True,nogil=True)
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:00:03.089833
+
+Date time: 2020-04-17 17:16:00.003323
+@jit(nopython=True,nogil=True)
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:00:02.974678
+
+Date time: 2020-04-17 17:16:18.936114
+@jit(nopython=True,nogil=True)
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:00:02.957151
+
+Date time: 2020-04-17 17:17:26.938943
+@jit(nopython=True,nogil=True)
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:00:03.641467
+
+Date time: 2020-04-17 17:18:36.887694
+@jit(nopython=True,nogil=True)
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:00:02.964370
+
+Numba helps us increase speed much!!!
+
+
+
