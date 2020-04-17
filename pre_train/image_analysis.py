@@ -6,6 +6,11 @@ Created on Wed Apr 15 09:17:48 2020
 @author: haoqiwang
 """
 
+'''
+This algorithm is too slow, because it has to open csv for every pixel,
+every point needs 0.2s, I need to shorten this to 0.0001 or even 0.00001
+'''
+
 import numpy as np
 import os
 import matplotlib.image as mpimg
