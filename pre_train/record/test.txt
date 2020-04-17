@@ -53,3 +53,35 @@ Total number of pixels: 1352569
 Total number of trained points: 64
 time elapse =0:00:14.641618
 
+Date time: 2020-04-17 12:20:32.578836
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 64
+time elapse =0:00:01.547777
+
+Date time: 2020-04-17 12:22:39.015584
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 64
+time elapse =0:00:01.422411
+
+Date time: 2020-04-17 12:27:56.777194
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:03:22.431032
+
+Date time: 2020-04-17 12:36:14.497254
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:03:18.672267
+
