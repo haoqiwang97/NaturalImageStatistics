@@ -16,6 +16,7 @@ calculate contrast of one pixel and its surrending pixels
 
 '''
 
+
 @jit(nopython=True, nogil=True)
 def rms_contrast(image, i, j, channel):
     p00 = image[i - 1, j - 1, channel]
@@ -38,11 +39,13 @@ def rms_contrast(image, i, j, channel):
 
     return rms_contrast
 
+
 '''
 
 the contrast_index is used to locate
 
 '''
+
 
 @jit(nopython=True, nogil=True)
 def contrast_index(contrast_mean):
@@ -51,6 +54,7 @@ def contrast_index(contrast_mean):
         return int(contrast_mean * 10)
     else:
         return int(9)
+
 
 '''
 
@@ -64,6 +68,7 @@ num_point, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, 
         image, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix)
 
 '''
+
 
 @jit(nopython=True, nogil=True)
 def pixel_analysis(image, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix):

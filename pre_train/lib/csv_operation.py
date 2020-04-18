@@ -119,6 +119,7 @@ def import_csv():
 
     return RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix
 
+
 '''
 export matrix to csv file
 
@@ -129,6 +130,8 @@ from lib import csv_operation
 csv_operation.export_csv(RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix)
 
 '''
+
+
 def export_csv(RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix):
     # export csv, store 6 matrix into 60 csvs
     CSV_FOLDER = './train_database/'
