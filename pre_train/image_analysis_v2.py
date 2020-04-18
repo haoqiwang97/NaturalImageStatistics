@@ -11,16 +11,11 @@ Created on Thu Apr 16 22:57:18 2020
 I will try to write that opening csv for each image to help speed up
 '''
 import os
-
-# import pandas as pd
-# import numpy as np
-# import matplotlib.image as mpimg
-
 import datetime
 
-import csv_operation
-import pixel_operation
-import image_operation
+from lib import csv_operation
+from lib import pixel_operation
+from lib import image_operation
 
 IMAGE_FOLDER = './image_database/'  # image location
 

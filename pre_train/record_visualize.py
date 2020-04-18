@@ -6,15 +6,18 @@ Created on Fri Apr 17 17:27:45 2020
 @author: haoqiwang
 """
 
-import csv_operation
-import image_operation
+from lib import csv_operation
+from lib import image_operation
 
 import matplotlib.pyplot as plt
 import numpy as np
 
 RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix = csv_operation.import_csv()
 
-image_path = './image_database/natural_forest.jpg'
+IMAGE_FOLDER = './image_database/'
+image_name='natural_forest.jpg'
+
+image_path=IMAGE_FOLDER+image_name
 
 image = image_operation.read_image(image_path)
 
