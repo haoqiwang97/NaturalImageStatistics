@@ -187,3 +187,12 @@ Total number of pixels: 1352569
 Total number of trained points: 1347921
 time elapse =0:00:03.237505
 
+Date time: 2020-04-17 22:13:10.172555
+@jit(nopython=True,nogil=True)
+The number of image: 0
+Image name: natural_forest.jpg
+Image dimension: 1163*1163
+Total number of pixels: 1352569
+Total number of trained points: 1347921
+time elapse =0:00:03.685888
+
