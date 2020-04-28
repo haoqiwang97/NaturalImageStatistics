@@ -157,3 +157,99 @@ def export_csv(RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matr
         GB_df.to_csv(CSV_FOLDER + 'GB_C0' + str(i) + '.csv')
         GB_record_df.to_csv(CSV_FOLDER + 'GB_C0' + str(i) + '_record.csv')
     return
+
+
+'''
+
+combine 10 contrast matrices
+This is for comparison between with or without contrast for prediction
+
+Example:
+    
+from lib import csv_operation
+
+import numpy as np
+import pandas as pd
+
+RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix = csv_operation.import_csv()
+
+CSV_FOLDER = './train_database_no_contrast/'
+
+RG_no_contrast=csv_operation.combine_contrast(RG_matrix,RG_record_matrix)
+RB_no_contrast=csv_operation.combine_contrast(RB_matrix,RB_record_matrix)
+GB_no_contrast=csv_operation.combine_contrast(GB_matrix,GB_record_matrix)
+
+
+RG_no_contrast_df = pd.DataFrame(RG_no_contrast, dtype=np.int32)
+RG_no_contrast_df.to_csv(CSV_FOLDER + 'RG_no_contrast' + '.csv')
+
+RB_no_contrast_df = pd.DataFrame(RB_no_contrast, dtype=np.int32)
+RB_no_contrast_df.to_csv(CSV_FOLDER + 'RB_no_contrast' + '.csv')
+
+GB_no_contrast_df = pd.DataFrame(GB_no_contrast, dtype=np.int32)
+GB_no_contrast_df.to_csv(CSV_FOLDER + 'GB_no_contrast' + '.csv')
+
+
+'''
+
+
+def combine_contrast(matrix, record_matrix):
+    num_row = 256
+    num_column = 256
+    num_contrast = 10
+
+    no_contrast_matrix = np.zeros((num_row, num_column), dtype=np.int32)
+
+    for i in range(num_row):
+        for j in range(num_column):
+            no_contrast_cell_sum = 0
+            no_contrast_cell_num = 0
+            for k in range(num_contrast):
+                no_contrast_cell_sum += matrix[i, j, k] * record_matrix[i, j, k]
+                no_contrast_cell_num += record_matrix[i, j, k]
+
+            if no_contrast_cell_num > 0:
+                no_contrast_cell = int(no_contrast_cell_sum / no_contrast_cell_num)
+                no_contrast_matrix[i, j] = no_contrast_cell
+            else:
+                no_contrast_matrix[i, j] = 0
+    return no_contrast_matrix
+
+
+'''
+import all csv files of no contrast
+
+Example:
+
+from lib import csv_operation
+
+RG_no_contrast_matrix, RB_no_contrast_matrix, GB_no_contrast_matrix=csv_operation.import_csv_no_contrast()
+
+'''
+
+
+def import_csv_no_contrast():
+    def df_formalize(csv_df):
+        csv_df.drop(index=0, columns=0, inplace=True)
+        csv_matrix = csv_df.to_numpy(dtype=np.int32)
+        return csv_matrix
+
+    CSV_FOLDER = './train_database_no_contrast/'
+    RG_csv_name = 'RG_no_contrast.csv'
+    RB_csv_name = 'RB_no_contrast.csv'
+    GB_csv_name = 'GB_no_contrast.csv'
+
+    # import RG
+    RG_csv_path = CSV_FOLDER + RG_csv_name
+    RG_csv_df = pd.read_csv(RG_csv_path, header=None, names=None)
+    RG_no_contrast_matrix = df_formalize(RG_csv_df)
+    # import RB
+    RB_csv_path = CSV_FOLDER + RB_csv_name
+    RB_csv_df = pd.read_csv(RB_csv_path, header=None, names=None)
+    RB_no_contrast_matrix = df_formalize(RB_csv_df)
+    # import GB   
+    GB_csv_path = CSV_FOLDER + GB_csv_name
+    GB_csv_df = pd.read_csv(GB_csv_path, header=None, names=None)
+    GB_no_contrast_matrix = df_formalize(GB_csv_df)
+
+    return RG_no_contrast_matrix, RB_no_contrast_matrix, GB_no_contrast_matrix

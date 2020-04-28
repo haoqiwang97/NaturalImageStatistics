@@ -245,3 +245,178 @@ def recover_blue(image_remove_blue):
     plt.yticks([])
 
     return image_recover_blue
+
+
+'''
+
+compare original image and recovered image
+
+Example:
+
+from lib import image_operation
+
+
+IMAGE_FOLDER = './image_database/'
+image_name = 'natural_forest.jpg'
+image_path = IMAGE_FOLDER + image_name
+
+ori_image = image_operation.read_image(image_path)
+image_remove_blue = image_operation.remove_blue(ori_image)
+image_recover_blue = image_operation.recover_blue(image_remove_blue)
+
+mse_blue = image_operation.compare_image(ori_image,image_recover_blue) 
+
+
+ori_image = image_operation.read_image(image_path)
+image_remove_red = image_operation.remove_red(ori_image)
+image_recover_red = image_operation.recover_red(image_remove_red)
+
+mse_red = image_operation.compare_image(ori_image,image_recover_red) 
+
+
+ori_image = image_operation.read_image(image_path)
+image_remove_green = image_operation.remove_green(ori_image)
+image_recover_green = image_operation.recover_green(image_remove_green)
+
+mse_green = image_operation.compare_image(ori_image,image_recover_green) 
+
+'''
+
+
+def compare_image(ori_image, image_recover):
+    mse_sum = 0
+    # mse_sum=mse_sum.astype(np.int64)
+    for i in range(ori_image.shape[2]):
+        for j in range(1, ori_image.shape[0] - 1):
+            for k in range(1, ori_image.shape[1] - 1):
+                mse_sum += (ori_image[j, k, i] - image_recover[j, k, i]) * (ori_image[j, k, i] - image_recover[j, k, i])
+
+    mse = mse_sum / (ori_image.shape[2] * (ori_image.shape[0] - 1) * (ori_image.shape[1] - 1))
+
+    print('Mean squared error: %.2f' % mse)
+    return mse
+
+
+'''
+
+recover image without considering contrast
+
+Example:
+
+from lib import image_operation
+
+
+IMAGE_FOLDER = './image_database/'
+image_name = 'natural_forest.jpg'
+
+image_path = IMAGE_FOLDER + image_name
+
+#red
+ori_image = image_operation.read_image(image_path)
+image_remove_red = image_operation.remove_red(ori_image)
+
+image_recover_red=image_operation.recover_red(image_remove_red)
+image_recover_red_no_contrast=image_operation.recover_red_no_contrast(image_remove_red)
+
+mse_red = image_operation.compare_image(ori_image,image_recover_red) 
+mse_red_no_contrast = image_operation.compare_image(ori_image,image_recover_red_no_contrast) 
+
+#green
+ori_image = image_operation.read_image(image_path)
+image_remove_green = image_operation.remove_green(ori_image)
+
+image_recover_green = image_operation.recover_green(image_remove_green)
+image_recover_green_no_contrast = image_operation.recover_green_no_contrast(image_remove_green)
+
+mse_green = image_operation.compare_image(ori_image,image_recover_green) 
+mse_green_no_contrast = image_operation.compare_image(ori_image,image_recover_green_no_contrast) 
+
+#blue
+ori_image = image_operation.read_image(image_path)
+image_remove_blue = image_operation.remove_blue(ori_image)
+
+image_recover_blue = image_operation.recover_blue(image_remove_blue)
+image_recover_blue_no_contrast = image_operation.recover_blue_no_contrast(image_remove_blue)
+
+mse_blue = image_operation.compare_image(ori_image,image_recover_blue) 
+mse_blue_no_contrast = image_operation.compare_image(ori_image,image_recover_blue_no_contrast)
+
+'''
+
+
+def recover_red_no_contrast(image_remove_red):
+    RG_no_contrast_matrix, RB_no_contrast_matrix, GB_no_contrast_matrix = csv_operation.import_csv_no_contrast()
+
+    image_recover_red_no_contrast = copy.deepcopy(image_remove_red)
+    image_size = image_remove_red.shape
+
+    num_row = image_size[0]  # how many rows
+    num_column = image_size[1]  # how many columns
+    recovered_red = np.zeros((num_row, num_column), dtype=np.int32)
+
+    for i in np.arange(1, num_row - 1):
+        for j in np.arange(1, num_column - 1):
+            green_value = image_remove_red[i, j, 1]
+            blue_value = image_remove_red[i, j, 2]
+
+            recovered_red[i, j] = GB_no_contrast_matrix[blue_value, green_value]
+
+    image_recover_red_no_contrast[:, :, 0] = recovered_red
+
+    plt.imshow(image_recover_red_no_contrast)
+    plt.xticks([])
+    plt.yticks([])
+
+    return image_recover_red_no_contrast
+
+
+def recover_green_no_contrast(image_remove_green):
+    RG_no_contrast_matrix, RB_no_contrast_matrix, GB_no_contrast_matrix = csv_operation.import_csv_no_contrast()
+
+    image_recover_green_no_contrast = copy.deepcopy(image_remove_green)
+    image_size = image_remove_green.shape
+
+    num_row = image_size[0]  # how many rows
+    num_column = image_size[1]  # how many columns
+    recovered_green = np.zeros((num_row, num_column), dtype=np.int32)
+
+    for i in np.arange(1, num_row - 1):
+        for j in np.arange(1, num_column - 1):
+            red_value = image_remove_green[i, j, 0]
+            blue_value = image_remove_green[i, j, 2]
+
+            recovered_green[i, j] = RB_no_contrast_matrix[blue_value, red_value]
+
+    image_recover_green_no_contrast[:, :, 1] = recovered_green
+
+    plt.imshow(image_recover_green_no_contrast)
+    plt.xticks([])
+    plt.yticks([])
+
+    return image_recover_green_no_contrast
+
+
+def recover_blue_no_contrast(image_remove_blue):
+    RG_no_contrast_matrix, RB_no_contrast_matrix, GB_no_contrast_matrix = csv_operation.import_csv_no_contrast()
+
+    image_recover_blue_no_contrast = copy.deepcopy(image_remove_blue)
+    image_size = image_remove_blue.shape
+
+    num_row = image_size[0]  # how many rows
+    num_column = image_size[1]  # how many columns
+    recovered_blue = np.zeros((num_row, num_column), dtype=np.int32)
+
+    for i in np.arange(1, num_row - 1):
+        for j in np.arange(1, num_column - 1):
+            red_value = image_remove_blue[i, j, 0]
+            green_value = image_remove_blue[i, j, 1]
+
+            recovered_blue[i, j] = RG_no_contrast_matrix[green_value, red_value]
+
+    image_recover_blue_no_contrast[:, :, 2] = recovered_blue
+
+    plt.imshow(image_recover_blue_no_contrast)
+    plt.xticks([])
+    plt.yticks([])
+
+    return image_recover_blue_no_contrast
