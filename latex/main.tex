@@ -88,9 +88,95 @@ This homework aims at applying neural network to recognize hand-written digits. 
 
 \section{Methods}
 
-\subsection{Import data}
+\subsection{Prepare image}
+convert 16 bits ppm image to 8 bits jpg image
 
-We import MNIST data.
+Each value is divided by $2^8$ to transform to 8 bits image
+
+construct csv files to store data
+
+train image
+use jit numba
+15s an image
+3s on pretest image
+calculate contrast
+
+\begin{equation}
+C_X=\sqrt{\frac19\sum_{i=1}^9{(\frac{X_i-\overline X}{\overline X})}^2}
+\label{contrast}
+\end{equation}
+
+%\begin{equation}
+%C_R=\sqrt{\frac19\sum_{i=1}^9{(\frac{R_i-\overline R}{\overline R})}^2}
+%\label{contrast_red}
+%\end{equation}
+
+%\begin{equation}
+%C_G=\sqrt{\frac19\sum_{i=1}^9{(\frac{G_i-\overline G}{\overline G})}^2}
+%\label{contrast_green}
+%\end{equation}
+
+%\begin{equation}
+%C_B=\sqrt{\frac19\sum_{i=1}^9{(\frac{B_i-\overline B}{\overline B})}^2}
+%\label{contrast_blue}
+%\end{equation}
+
+, where
+\begin{equation}
+\overline X=\frac19\sum_{i=1}^9X_i
+\label{mean}
+\end{equation}
+
+and $X=R,\;G,\;B$
+
+\begin{equation}
+C_{G,B}=\frac12(C_G+C_B)
+\label{contrast_GB}
+\end{equation}
+
+\begin{equation}
+C_{R,B}=\frac12(C_R+C_B)
+\label{contrast_RB}
+\end{equation}
+
+\begin{equation}
+C_{R,G}=\frac12(C_R+C_G)
+\label{contrast_RG}
+\end{equation}
+
+$256*256*10$
+record in txt file
+
+remove color
+set the color channel matrix as 0
+
+recover image
+\begin{equation}
+{\widehat R}_{opt}=GB(G,B,C_{G,B})
+\end{equation}
+
+\begin{equation}
+{\widehat G}_{opt}=RB(R,B,C_{R,B})
+\end{equation}
+
+\begin{equation}
+{\widehat B}_{opt}=RG(R,G,C_{R,G})
+\end{equation}
+
+compare image
+calculate mse
+\begin{equation}
+MSE=\frac1{n_1n_2n_3}\sum_i^{n_1}\sum_j^{n_2}\sum_k^{n_3}{({\widehat x}_{ijk}-x_{ijk})}^2
+\end{equation}
+, where $n_1$ is the number of channels, $n_2$ and $n_3$are number of rows and columns of an image.
+
+gamma correction
+First the image is scaled to $I_{in}\in(0,1)$, then apply gamma correction
+\begin{equation}
+I_{out}=I_{in}^\gamma
+\end{equation}
+, where we choose $\gamma=1/2$. After the correction, it is then scaled back to display.
+
 
 \subsection{Neural network}
 
@@ -385,12 +471,12 @@ natural forest recover\ref{natural_forest_recover}
 	\label{predicted color no contrast pre}
 \end{figure}
 
-\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
-	\centering
-	\includegraphics[width=1\columnwidth]{Figure/natural_forest_recover} % Example image
-	\caption{natural forest recover}
-	\label{natural_forest_recover}
-\end{figure}
+%\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+%	\centering
+%	\includegraphics[width=1\columnwidth]{Figure/natural_forest_recover} % Example image
+%	\caption{natural forest recover}
+%	\label{natural_forest_recover}
+%\end{figure}
 
 \subsection{Record visualization}
 
@@ -425,6 +511,13 @@ predicted colors no contrast surface plot\ref{predicted color no contrast surfac
 	\label{predicted blue}
 \end{figure}
 
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=1\columnwidth]{Figure/MSE_contrast} % Example image
+	\caption{MSE contrast}
+	\label{MSE}
+\end{figure}
+
 \begin{figure}[H]
 	\centering  %图片全局居中
 	\subfigure[predicted red no contrast]{
@@ -457,21 +550,21 @@ predicted colors no contrast surface plot\ref{predicted color no contrast surfac
 
 \subsection{Recover images}
 
-cps201004281214 recover \ref{cps201004281214_recover}
-cps201004291795 recover \ref{cps201004291795_recover}
-\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
-	\centering
-	\includegraphics[width=1\columnwidth]{Figure/cps201004281214_recover} % Example image
-	\caption{cps201004281214 recover}
-	\label{cps201004281214_recover}
-\end{figure}
+%cps201004281214 recover \ref{cps201004281214_recover}
+%cps201004291795 recover \ref{cps201004291795_recover}
+%\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+%	\centering
+%	\includegraphics[width=1\columnwidth]{Figure/cps201004281214_recover} % Example image
+%	\caption{cps201004281214 recover}
+%	\label{cps201004281214_recover}
+%\end{figure}
 
-\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
-	\centering
-	\includegraphics[width=1\columnwidth]{Figure/cps201004291795_recover} % Example image
-	\caption{cps201004291795 recover}
-	\label{cps201004291795_recover}
-\end{figure}
+%\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+%	\centering
+%	\includegraphics[width=1\columnwidth]{Figure/cps201004291795_recover} % Example image
+%	\caption{cps201004291795 recover}
+%	\label{cps201004291795_recover}
+%\end{figure}
 
 \subsubsection{Experiment 3}
 

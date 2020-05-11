@@ -20,6 +20,18 @@ RG_no_contrast = csv_operation.combine_contrast(RG_matrix, RG_record_matrix)
 RB_no_contrast = csv_operation.combine_contrast(RB_matrix, RB_record_matrix)
 GB_no_contrast = csv_operation.combine_contrast(GB_matrix, GB_record_matrix)
 
+'''
+RG_no_contrast_df = pd.DataFrame(RG_no_contrast, dtype=np.int32)
+RG_no_contrast_df.to_csv(CSV_FOLDER + 'RG_no_contrast' + '.csv')
+
+RB_no_contrast_df = pd.DataFrame(RB_no_contrast, dtype=np.int32)
+RB_no_contrast_df.to_csv(CSV_FOLDER + 'RB_no_contrast' + '.csv')
+
+GB_no_contrast_df = pd.DataFrame(GB_no_contrast, dtype=np.int32)
+GB_no_contrast_df.to_csv(CSV_FOLDER + 'GB_no_contrast' + '.csv')
+'''
+# %%
+RG_no_contrast_matrix, RB_no_contrast_matrix, GB_no_contrast_matrix=csv_operation.import_csv_no_contrast()
 # %%
 # blue plot
 # plt.imshow(RG_no_contrast, cmap=plt.cm.rainbow)
@@ -87,13 +99,4 @@ plt.ylabel('B')
 
 plt.gca().invert_yaxis()
 # plt.savefig("predicted_red_no_contrast_rainbow", dpi=300)
-'''
-RG_no_contrast_df = pd.DataFrame(RG_no_contrast, dtype=np.int32)
-RG_no_contrast_df.to_csv(CSV_FOLDER + 'RG_no_contrast' + '.csv')
 
-RB_no_contrast_df = pd.DataFrame(RB_no_contrast, dtype=np.int32)
-RB_no_contrast_df.to_csv(CSV_FOLDER + 'RB_no_contrast' + '.csv')
-
-GB_no_contrast_df = pd.DataFrame(GB_no_contrast, dtype=np.int32)
-GB_no_contrast_df.to_csv(CSV_FOLDER + 'GB_no_contrast' + '.csv')
-'''
