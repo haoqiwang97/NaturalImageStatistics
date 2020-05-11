@@ -34,12 +34,13 @@ def rms_contrast(image, i, j, channel):
     # contrast_matrix = [p00, p01, p02, p10, p11, p12, p20, p21, p22]
 
     contrast_matrix = np.array([p00, p01, p02, p10, p11, p12, p20, p21, p22], dtype=np.float32)
-    
-    if np.mean(contrast_matrix)>0:
+
+    if np.mean(contrast_matrix) > 0:
         rms_contrast = np.std(contrast_matrix) / np.mean(contrast_matrix)
         return rms_contrast
     else:
         return 0
+
 
 '''
 

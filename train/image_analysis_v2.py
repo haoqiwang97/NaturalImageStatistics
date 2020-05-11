@@ -17,16 +17,16 @@ from lib import csv_operation
 from lib import pixel_operation
 from lib import image_operation
 
-#IMAGE_FOLDER = './image_database/'  # image location
-#IMAGE_FOLDER = 'F:\\image_database\\train_temp\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20100503.ppmprocessed\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20100428.ppmprocessed\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20100429.ppmprocessed\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20100430.ppmprocessed\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20100502.ppmprocessed\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20100511.ppmprocessed\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20100513.ppmprocessed\\'
-#IMAGE_FOLDER = 'F:\\image_database\\cps20101008.ppmprocessed\\'
+# IMAGE_FOLDER = './image_database/'  # image location
+# IMAGE_FOLDER = 'F:\\image_database\\train_temp\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20100503.ppmprocessed\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20100428.ppmprocessed\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20100429.ppmprocessed\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20100430.ppmprocessed\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20100502.ppmprocessed\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20100511.ppmprocessed\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20100513.ppmprocessed\\'
+# IMAGE_FOLDER = 'F:\\image_database\\cps20101008.ppmprocessed\\'
 IMAGE_FOLDER = 'F:\\image_database\\cps20101012.ppmprocessed\\'
 
 # get names for all images
@@ -42,7 +42,8 @@ for image_index in range(len(image_name_list)):
 
     image = image_operation.read_image(image_path)
 
-    num_point, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix = pixel_operation.pixel_analysis(image, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix)
+    num_point, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix = pixel_operation.pixel_analysis(
+        image, RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix)
 
     csv_operation.export_csv(RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix)
 
@@ -62,7 +63,7 @@ for image_index in range(len(image_name_list)):
 
     file.writelines('Folder time: ' + IMAGE_FOLDER)
     file.writelines('\n')
-    
+
     file.writelines('@jit(nopython=True,nogil=True)')
     file.writelines('\n')
 

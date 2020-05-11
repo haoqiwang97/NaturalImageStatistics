@@ -53,7 +53,8 @@ fig.colorbar(images[0], ax=axes, orientation='vertical', fraction=.05)
 
 # fig.tight_layout()
 
-plt.savefig("natural_forest_predicted_blue", dpi=300)
+# plt.savefig("natural_forest_predicted_blue", dpi=300)
+# plt.savefig("predicted_blue", dpi=300)
 
 plt.show()
 # %%
@@ -86,7 +87,8 @@ fig.colorbar(images[0], ax=axes, orientation='vertical', fraction=.05)
 
 # fig.tight_layout()
 
-plt.savefig("natural_forest_predicted_green", dpi=300)
+# plt.savefig("natural_forest_predicted_green", dpi=300)
+# plt.savefig("predicted_green", dpi=300)
 
 plt.show()
 # %%
@@ -121,6 +123,7 @@ fig.colorbar(images[0], ax=axes, orientation='vertical', fraction=.05)
 # fig.tight_layout()
 
 # plt.savefig("natural_forest_predicted_red",dpi=300)
+# plt.savefig("predicted_red",dpi=300)
 
 plt.show()
 # %%

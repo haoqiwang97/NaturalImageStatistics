@@ -413,6 +413,12 @@ def recover_blue_no_contrast(image_remove_blue):
 
             recovered_blue[i, j] = RG_no_contrast_matrix[green_value, red_value]
 
+            # print('red',red_value)
+            # print('green',green_value)
+
+            # print('RG_no_contrast_matrix',RG_no_contrast_matrix[green_value, red_value])
+            # print('reconvered blue',recovered_blue[i, j])
+
     image_recover_blue_no_contrast[:, :, 2] = recovered_blue
 
     plt.imshow(image_recover_blue_no_contrast)
@@ -420,3 +426,28 @@ def recover_blue_no_contrast(image_remove_blue):
     plt.yticks([])
 
     return image_recover_blue_no_contrast
+
+
+'''
+
+gamma transform, make the image bright to view
+
+Example:
+
+from lib import image_operation
+
+img_gamma2=image_operation.gamma2_transform(image_recover_blue_no_contrast)
+
+'''
+
+
+def gamma2_transform(img):
+    img_scale = (img.astype(np.float32)) / (2 ** 8 - 1)
+    img_scale_gamma2 = pow(img_scale, 1 / 2)
+    img_gamma2 = np.uint8(img_scale_gamma2 * (2 ** 8 - 1))
+
+    plt.imshow(img_gamma2)
+    plt.xticks([])
+    plt.yticks([])
+
+    return img_gamma2

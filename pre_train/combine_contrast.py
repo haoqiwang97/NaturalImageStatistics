@@ -10,6 +10,7 @@ from lib import csv_operation
 
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 RG_matrix, RG_record_matrix, RB_matrix, RB_record_matrix, GB_matrix, GB_record_matrix = csv_operation.import_csv()
 
@@ -19,6 +20,28 @@ RG_no_contrast = csv_operation.combine_contrast(RG_matrix, RG_record_matrix)
 RB_no_contrast = csv_operation.combine_contrast(RB_matrix, RB_record_matrix)
 GB_no_contrast = csv_operation.combine_contrast(GB_matrix, GB_record_matrix)
 
+# %%
+
+plt.imshow(RG_no_contrast, cmap=plt.cm.Blues)
+plt.colorbar()
+plt.title('$\hat B_{opt}$')
+plt.xlabel('R')
+plt.ylabel('G')
+# plt.savefig("predicted_blue_no_contrast_pre", dpi=300)
+
+plt.imshow(RB_no_contrast, cmap=plt.cm.Greens)
+plt.colorbar()
+plt.title('$\hat G_{opt}$')
+plt.xlabel('R')
+plt.ylabel('B')
+# plt.savefig("predicted_green_no_contrast_pre", dpi=300)
+
+plt.imshow(GB_no_contrast, cmap=plt.cm.Reds)
+plt.colorbar()
+plt.title('$\hat R_{opt}$')
+plt.xlabel('G')
+plt.ylabel('B')
+# plt.savefig("predicted_red_no_contrast_pre", dpi=300)
 '''
 RG_no_contrast_df = pd.DataFrame(RG_no_contrast, dtype=np.int32)
 RG_no_contrast_df.to_csv(CSV_FOLDER + 'RG_no_contrast' + '.csv')
