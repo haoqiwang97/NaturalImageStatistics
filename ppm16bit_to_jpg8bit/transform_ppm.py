@@ -38,7 +38,7 @@ def transform_image(image_path):
     img8_gamma3=np.uint8(img_scale_gamma3*(2**8-1))
     img8_gamma3 = cv2.cvtColor(img8_gamma3, cv2.COLOR_BGR2RGB)
     '''
-    img8 = (img16 / 256).astype('uint8')
+    img8 = (img16 / 257).astype('uint8')
     img8 = cv2.cvtColor(img8, cv2.COLOR_BGR2RGB)
     # ii=img8-img8_gamma2
 
